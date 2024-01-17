@@ -55,6 +55,7 @@ const NewOrder = () => {
     //         total: Math.round((order.total + pizza.attributes.price) * 100)/100,
     //     });
     // }
+    
     const addToOrder = (pizza) => {
         setOrder({
             id,
@@ -63,16 +64,25 @@ const NewOrder = () => {
         });
     }
 
-    // const removePizzas = (selectedPizza) => {
-    //     const quantity = prompt("Combien de pizzas à supprimer ?");
-    //     const pizzaType = pizzas.find(pizza => pizza.attributes.name === selectedPizza.attributes.name)
-    //     const selectedPizzas = order.pizzas.filter( selection => selection.attributes.name != selectedPizza.attributes.name);
-    //     const removedPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name).splice(0,quantity);
-    //     saveToLocalSotrage({
-    //         pizzas: [selectedPizzas, removedPizzas],
-    //         total: Math.round((order.total - (pizzaType.attributes.price * quantity)) * 100)/100,
-    //     })
-    // }
+
+    const removePizzas = (selectedPizza) => {
+        let quantity = prompt("Combien de pizzas à supprimer ?");
+        const pizzaType = pizzas.find(pizza => pizza.attributes.name === selectedPizza.attributes.name)
+        const selectedPizzas = order.pizzas.filter( selection => selection.attributes.name != selectedPizza.attributes.name);
+        const targetPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name)
+        const remainingPizzas = targetPizzas.filter((selection, index) => index > (quantity-1));
+        console.log(quantity);
+        console.log(pizzaType);
+        console.log(targetPizzas);
+        if(quantity > targetPizzas.length ){
+            quantity = targetPizzas.length
+        }
+        setOrder({
+            id,
+            pizzas: selectedPizzas.concat(remainingPizzas),
+            total: Math.round((order.total - (pizzaType.attributes.price * quantity)) * 100)/100,
+        })
+    }
 
     const validateOrder = () => {
         if (order.pizzas.length === 0) {
@@ -110,7 +120,7 @@ const NewOrder = () => {
                         <p>{totalPrice}€</p>
                     </div>
                     <button 
-                    // onClick={removePizzas(pizza)}
+                    onClick={() => removePizzas(pizza)}
                     >
                         Supprimer
                     </button>

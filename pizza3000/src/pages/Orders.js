@@ -9,7 +9,7 @@ const Orders = () => {
 
   const dispatch = useDispatch()
 
-  const ordersList = orders.map(order => {
+  const ordersList = orders.map((order, index) => {
     let status;
     if (order.paid){
       status = <td className='green'>
@@ -21,7 +21,7 @@ const Orders = () => {
         </td>
     }
     return(
-      <tr>
+      <tr key={index}>
         <td>
           {order.id}
         </td>

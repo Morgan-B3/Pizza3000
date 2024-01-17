@@ -36,10 +36,19 @@ header{
 .menusList{
   display: flex;
   justify-content: space-between;
+  margin: auto;
+  width: 100%;
+  text-align: center;
   .ant-card{
     width: 32%;
+    color: white;
     &:hover{
       cursor: pointer;
+    }
+    .icon{
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
   }
 }
@@ -94,12 +103,6 @@ header{
     &:hover{
       cursor: pointer;
     }
-    &.red{
-      background-color: rgb(255, 36, 36);
-    }
-    &.green{
-      background-color: rgb(36, 180, 39);
-    }
   }
 }
 
@@ -126,4 +129,16 @@ header{
     width: fit-content;
     background-color: rgb(255, 36, 36) ;
   }
+}
+
+.red{
+  background-color: rgb(255, 36, 36);
+}
+
+.green{
+  background-color: rgb(36, 180, 39);
+}
+
+.blue{
+  background-color: rgb(39, 115, 255);
 }

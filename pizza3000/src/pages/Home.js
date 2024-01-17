@@ -1,26 +1,40 @@
 import React from 'react'
-import menus from '../menus'
-import { Card } from "antd"
+// import { Card } from "antd"
 import { FaFireFlameCurved, FaShoppingCart, BsFillClipboard2PlusFill } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
-// import "../App.scss"
+import {useSelector } from "react-redux";
+import Menu from "../components/Menu"
+import menus from '../menus'
 
 const Home = () => {
+    const orders = useSelector(state => state.data.orders);
+    console.log(orders);
     const navigate = useNavigate();
-    const menusList = menus.map((menu, index) => {
-        // const Icon = menu.icon;
-        return (
-            <Card key={index} onClick={() => navigate(`/${menu.slug}/${Date.now()}`)} >
-                {/* <span><Icon /></span> */}
-                <h2>{menu.title}</h2>
-                <p>{menu.subtitle}</p>
 
-            </Card>
+    const navigateMenu = (route) => {
+        if (route === "nouvelle-commande"){
+            route = `nouvelle-commande/${Date.now()}`
+        }
+        navigate(`/${route}`)
+    }
+
+    const menusList = menus.map((menu, index) => {
+        return (
+            <Menu 
+                key={index}
+                title={menu.title} 
+                subtitle={menu.subtitle}  
+                action={() => navigateMenu(menu.slug)}
+                icon={menu.icon}
+                color={menu.color}
+            />
         )
     });
 
     return (
-        <div className="menusList" >{menusList}</div>
+        <div className="menusList" >
+            {menusList}
+        </div>
     )
 }
 

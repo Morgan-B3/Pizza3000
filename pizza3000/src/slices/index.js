@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const initialState = {
     orders: []
@@ -20,6 +22,6 @@ const dataSlice = createSlice({
     }
 })
 
-export const {} = dataSlice.actions;
+export const { add } = dataSlice.actions;
 
 export default dataSlice.reducer;

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Pizza from '../components/Pizza';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { add } from "../slices";
 
 const NewOrder = () => {
 
     const { id } = useParams();
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [pizzas, setPizzas] = useState([]);
     const [order, setOrder] = useState(JSON.parse(localStorage.getItem("order")) || {
@@ -40,6 +45,7 @@ const NewOrder = () => {
 
     const addToOrder = (pizza) => {
         saveToLocalSotrage({
+            id,
             pizzas: [...order.pizzas, pizza],
             total: Math.round((order.total + pizza.attributes.price) * 100)/100,
         });
@@ -55,6 +61,11 @@ const NewOrder = () => {
     //         total: Math.round((order.total - (pizzaType.attributes.price * quantity)) * 100)/100,
     //     })
     // }
+
+    const validateOrder = () => {
+        dispatch(add(order));
+        navigate("/");
+    }
 
     const pizzasList = pizzas.map(pizza => {
         return (
@@ -72,22 +83,22 @@ const NewOrder = () => {
         const samePizzas = order.pizzas.filter(orderedPizza => orderedPizza.attributes.name === pizza.attributes.name);
         const quantity = samePizzas.length;
         const totalPrice = Math.round(pizza.attributes.price * quantity * 100)/100;
-            if (quantity > 0) {
-                return (
-                    <div key={index} className='pizzaItem'>
-                        <div>
-                            <span>
-                                <h3>{pizza.attributes.name}</h3>
-                                <p>({quantity} x {pizza.attributes.price}€)</p>
-                            </span>
-                            <p>{totalPrice}€</p>
-                        </div>
-                        <button 
-                        // onClick={removePizzas(pizza)}
-                        >
-                            Supprimer
-                        </button>
+        if (quantity > 0) {
+            return (
+                <div key={index} className='pizzaItem'>
+                    <div>
+                        <span>
+                            <h3>{pizza.attributes.name}</h3>
+                            <p>({quantity} x {pizza.attributes.price}€)</p>
+                        </span>
+                        <p>{totalPrice}€</p>
                     </div>
+                    <button 
+                    // onClick={removePizzas(pizza)}
+                    >
+                        Supprimer
+                    </button>
+                </div>
             )
         }
     })
@@ -103,10 +114,10 @@ const NewOrder = () => {
                 {orderedPizzas}
             </span>
             <span className='buttons'>
-                <button className='green'>
+                <button className='green' onClick={() => validateOrder()}>
                     Total : {order.total}€
                 </button>
-                <button className='red' onClick={clearLocalStorage}>
+                <button className='red' onClick={() => clearLocalStorage()}>
                     Effacer la commande
                 </button>
             </span>

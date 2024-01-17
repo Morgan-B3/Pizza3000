@@ -1,8 +1,6 @@
-import { FaFireFlameCurved, FaShoppingCart, BsFillClipboard2PlusFill } from "react-icons/fa6";
-
 const menus = [
     {
-        icon : "<BsFillClipboard2PlusFill />",
+        icon : "<LuClipboardSignature />",
         title: "Nouvelle commande",
         subtitle: "Créer et enregistrer une nouvelle commande",
         color: "blue",

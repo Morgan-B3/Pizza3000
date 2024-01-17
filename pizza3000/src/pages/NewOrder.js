@@ -12,11 +12,16 @@ const NewOrder = () => {
     const navigate = useNavigate();
 
     const [pizzas, setPizzas] = useState([]);
-    const [order, setOrder] = useState(JSON.parse(localStorage.getItem("order")) || {
+    const [order, setOrder] = useState({
         id,
         total: 0,
         pizzas: [],
     });
+    // const [order, setOrder] = useState(JSON.parse(localStorage.getItem("order")) || {
+    //     id,
+    //     total: 0,
+    //     pizzas: [],
+    // });
 
     // console.log(JSON.parse(localStorage.getItem("order")));
 
@@ -29,22 +34,29 @@ const NewOrder = () => {
         getPizzas();
     }, [])
 
-    const saveToLocalSotrage = (order) => {
-        localStorage.setItem("order", JSON.stringify(order));
-        setOrder(order);
-    };
+    // const saveToLocalSotrage = (order) => {
+    //     localStorage.setItem("order", JSON.stringify(order));
+    //     setOrder(order);
+    // };
 
-    const clearLocalStorage = () => {
-        localStorage.removeItem("order");
-        setOrder({
-            id,
-            total: 0,
-            pizzas: [],
-        });
-    }
+    // const clearLocalStorage = () => {
+    //     localStorage.removeItem("order");
+    //     setOrder({
+    //         id,
+    //         total: 0,
+    //         pizzas: [],
+    //     });
+    // }
 
+    // const addToOrder = (pizza) => {
+    //     saveToLocalSotrage({
+    //         id,
+    //         pizzas: [...order.pizzas, pizza],
+    //         total: Math.round((order.total + pizza.attributes.price) * 100)/100,
+    //     });
+    // }
     const addToOrder = (pizza) => {
-        saveToLocalSotrage({
+        setOrder({
             id,
             pizzas: [...order.pizzas, pizza],
             total: Math.round((order.total + pizza.attributes.price) * 100)/100,
@@ -63,8 +75,12 @@ const NewOrder = () => {
     // }
 
     const validateOrder = () => {
-        dispatch(add(order));
-        navigate("/");
+        if (order.pizzas.length === 0) {
+            alert("Veuillez selectionner au moins une pizza.")
+        } else {
+            dispatch(add(order));
+            navigate("/");
+        }
     }
 
     const pizzasList = pizzas.map(pizza => {
@@ -117,9 +133,9 @@ const NewOrder = () => {
                 <button className='green' onClick={() => validateOrder()}>
                     Total : {order.total}€
                 </button>
-                <button className='red' onClick={() => clearLocalStorage()}>
+                {/* <button className='red' onClick={() => clearLocalStorage()}>
                     Effacer la commande
-                </button>
+                </button> */}
             </span>
         </section>
         </>

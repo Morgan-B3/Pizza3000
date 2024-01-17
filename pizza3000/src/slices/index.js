@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const initialState = {
-    orders: []
+    orders: JSON.parse(localStorage.getItem("orders")) || []
 }
 
 const dataSlice = createSlice({
@@ -17,11 +17,21 @@ const dataSlice = createSlice({
                 total: payload.total,
                 pizzas: payload.pizzas,
                 paid: false,
-            })
+            });
+            localStorage.setItem("orders", JSON.stringify([...state.orders, {
+                id: payload.id,
+                total: payload.total,
+                pizzas: payload.pizzas,
+                paid: false,
+            }]));
+        },
+        remove: (state, {payload}) => {
+            state.orders = [];
+            localStorage.removeItem("orders");
         }
     }
 })
 
-export const { add } = dataSlice.actions;
+export const { add, remove } = dataSlice.actions;
 
 export default dataSlice.reducer;

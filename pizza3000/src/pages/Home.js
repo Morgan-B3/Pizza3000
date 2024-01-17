@@ -7,8 +7,7 @@ import Menu from "../components/Menu"
 import menus from '../menus'
 
 const Home = () => {
-    const orders = useSelector(state => state.data.orders);
-    console.log(orders);
+    
     const navigate = useNavigate();
 
     const navigateMenu = (route) => {

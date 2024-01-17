@@ -6,7 +6,7 @@ import { LuClipboardSignature } from "react-icons/lu";
 
 
 const Menu = ({action, title, subtitle, icon, color}) => {
-    let iconItem = "";
+    let iconItem;
     
     if (icon === "<FaFireFlameCurved />"){
         iconItem = <FaFireFlameCurved size={50}/>

@@ -131,6 +131,19 @@ header{
   }
 }
 
+.ordersList{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  table{
+    text-align: left;
+    background-color: white;
+    th{
+      width: 25%;
+    }
+  }
+}
+
 .red{
   background-color: rgb(255, 36, 36);
 }
@@ -141,4 +154,8 @@ header{
 
 .blue{
   background-color: rgb(39, 115, 255);
+}
+
+.yellow{
+  background-color: rgb(255, 225, 0);
 }

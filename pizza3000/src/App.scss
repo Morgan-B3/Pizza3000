@@ -45,6 +45,7 @@ header{
 }
 
 .pizzasList{
+  width: 80%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   flex-wrap: wrap;
@@ -70,6 +71,7 @@ header{
 }
 
 .order{
+  width: flex 1;
   background-color: white;
   padding: 1rem;
   display: flex;
@@ -113,4 +115,15 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  button{
+    width: fit-content;
+    background-color: rgb(255, 36, 36) ;
+  }
 }

@@ -4,7 +4,7 @@ import React from 'react'
 const Pizza = ({name, price, image, action}) => {
   return (
     <Card>
-      <div className='image' onClick={action}>
+      <div className='image' onClick={action} title={name}>
         <img src={image} alt={name} />
       </div>
       <span>

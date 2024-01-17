@@ -45,6 +45,17 @@ const NewOrder = () => {
         });
     }
 
+    // const removePizzas = (selectedPizza) => {
+    //     const quantity = prompt("Combien de pizzas à supprimer ?");
+    //     const pizzaType = pizzas.find(pizza => pizza.attributes.name === selectedPizza.attributes.name)
+    //     const selectedPizzas = order.pizzas.filter( selection => selection.attributes.name != selectedPizza.attributes.name);
+    //     const removedPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name).splice(0,quantity);
+    //     saveToLocalSotrage({
+    //         pizzas: [selectedPizzas, removedPizzas],
+    //         total: Math.round((order.total - (pizzaType.attributes.price * quantity)) * 100)/100,
+    //     })
+    // }
+
     const pizzasList = pizzas.map(pizza => {
         return (
             <Pizza 
@@ -64,11 +75,18 @@ const NewOrder = () => {
             if (quantity > 0) {
                 return (
                     <div key={index} className='pizzaItem'>
-                        <span>
-                            <h3>{pizza.attributes.name}</h3>
-                            <p>({quantity} x {pizza.attributes.price}€)</p>
-                        </span>
-                        <p>{totalPrice}€</p>
+                        <div>
+                            <span>
+                                <h3>{pizza.attributes.name}</h3>
+                                <p>({quantity} x {pizza.attributes.price}€)</p>
+                            </span>
+                            <p>{totalPrice}€</p>
+                        </div>
+                        <button 
+                        // onClick={removePizzas(pizza)}
+                        >
+                            Supprimer
+                        </button>
                     </div>
             )
         }

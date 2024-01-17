@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const navigate = useNavigate();
-    const menusList = menus.map(menu => {
+    const menusList = menus.map((menu, index) => {
         // const Icon = menu.icon;
         return (
-            <Card onClick={() => navigate(`/${menu.slug}/${Date.now()}`)} >
+            <Card key={index} onClick={() => navigate(`/${menu.slug}/${Date.now()}`)} >
                 {/* <span><Icon /></span> */}
                 <h2>{menu.title}</h2>
                 <p>{menu.subtitle}</p>

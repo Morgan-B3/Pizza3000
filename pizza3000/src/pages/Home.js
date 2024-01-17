@@ -10,7 +10,7 @@ const Home = () => {
     const menusList = menus.map(menu => {
         // const Icon = menu.icon;
         return (
-            <Card onClick={() => navigate(`/${menu.slug}`)} >
+            <Card onClick={() => navigate(`/${menu.slug}/${Date.now()}`)} >
                 {/* <span><Icon /></span> */}
                 <h2>{menu.title}</h2>
                 <p>{menu.subtitle}</p>

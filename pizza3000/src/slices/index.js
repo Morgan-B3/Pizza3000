@@ -12,7 +12,9 @@ const dataSlice = createSlice({
         add: (state, { payload }) => {
             state.orders.push({
                 id: payload.id,
-                price: payload.price,
+                total: payload.total,
+                pizzas: payload.pizzas,
+                paid: false,
             })
         }
     }

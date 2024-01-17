@@ -1,8 +1,17 @@
+import { Card } from 'antd'
 import React from 'react'
 
-const Pizza = (name, price, image) => {
+const Pizza = ({name, price, image, action}) => {
   return (
-    <div></div>
+    <Card>
+      <div className='image' onClick={action}>
+        <img src={image} alt={name} />
+      </div>
+      <span>
+        <h2>{name}</h2>
+        <p>{price} €</p>
+      </span>
+    </Card>
   )
 }
 

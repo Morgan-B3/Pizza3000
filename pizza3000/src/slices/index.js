@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import pizzas from "../pizzas.js";
 
 
 const initialState = {
-    orders: JSON.parse(localStorage.getItem("orders")) || []
+    orders: JSON.parse(localStorage.getItem("orders")) || [],
+    pizzas,
 }
 
 const dataSlice = createSlice({

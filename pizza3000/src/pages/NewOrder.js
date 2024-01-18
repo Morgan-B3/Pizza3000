@@ -13,7 +13,9 @@ const NewOrder = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [pizzas, setPizzas] = useState([]);
+    // const [pizzas, setPizzas] = useState([]);
+    const pizzas = useSelector(state => state.data.pizzas);
+
     const [order, setOrder] = useState({
         id,
         total: 0,
@@ -37,36 +39,15 @@ const NewOrder = () => {
         paid = false;
     } 
         
-    const getPizzas = async () => {
-        const response = await fetch("http://localhost:1337/api/pizzas").then(res => res.json());
-        setPizzas(response.data);
-    }
+    // const getPizzas = async () => {
+    //     const response = await fetch("http://localhost:1337/api/pizzas").then(res => res.json());
+    //     setPizzas(response.data);
+    // }
     
-    useEffect(() => {
-        getPizzas();
-    }, [])
+    // useEffect(() => {
+    //     getPizzas();
+    // }, [])
 
-    // const saveToLocalSotrage = (order) => {
-    //     localStorage.setItem("order", JSON.stringify(order));
-    //     setOrder(order);
-    // };
-
-    // const clearLocalStorage = () => {
-    //     localStorage.removeItem("order");
-    //     setOrder({
-    //         id,
-    //         total: 0,
-    //         pizzas: [],
-    //     });
-    // }
-
-    // const addToOrder = (pizza) => {
-    //     saveToLocalSotrage({
-    //         id,
-    //         pizzas: [...order.pizzas, pizza],
-    //         total: Math.round((order.total + pizza.attributes.price) * 100)/100,
-    //     });
-    // }
 
     const addToOrder = (pizza) => {
         if (paid) {

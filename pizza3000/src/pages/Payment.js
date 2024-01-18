@@ -6,20 +6,21 @@ import OrderRecap from './OrderRecap.js';
 
 const Payment = () => {
   const [selectedOption, setSelectedOption] = useState()
-  const [pizzas, setPizzas] = useState()
+  // const [pizzas, setPizzas] = useState()
+  const pizzas = useSelector(state => state.data.pizzas);
   const orders = useSelector(state => state.data.orders).filter((order)=>!order.paid);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const getPizzas = async () => {
-      const response = await fetch("http://localhost:1337/api/pizzas").then(res => res.json());
-      setPizzas(response.data);
-  }
+  // const getPizzas = async () => {
+  //     const response = await fetch("http://localhost:1337/api/pizzas").then(res => res.json());
+  //     setPizzas(response.data);
+  // }
 
-  useEffect(() => {
-      getPizzas();
-  }, [])
+  // useEffect(() => {
+  //     getPizzas();
+  // }, [])
 
   const payOrder = (orderIndex) => {
     dispatch(pay(orderIndex));
@@ -50,7 +51,7 @@ const Payment = () => {
                   </div>
               )
           }
-      })
+        })
         return(
           <div>
              <OrderRecap key={Date.now()} id={selectedOrder.id} pizzas={pizzas2} total={selectedOrder.total} action={()=>{payOrder(orderIndex)}} newOrder={false} />
@@ -58,13 +59,9 @@ const Payment = () => {
         )
       } else {
         return (
-            <table > 
-              <thead>
-                <tr>
-                  <th className='title' >Choisissez une commande</th>
-                </tr>
-              </thead>
-            </table>
+          <section className='order'>
+            <h1> Choisissez une commande </h1>
+          </section>
         )
       }
     })

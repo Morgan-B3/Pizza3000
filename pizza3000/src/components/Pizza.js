@@ -5,7 +5,7 @@ const Pizza = ({name, price, image, action}) => {
   return (
     <div onClick={action} title={name}>
       <Card>
-        <div className='image' >
+        <div>
           <img src={image} alt={name} />
         </div>
         <span>

@@ -18,20 +18,20 @@ const dataSlice = createSlice({
                 pizzas: payload.pizzas,
                 paid: false,
             });
-            localStorage.setItem("orders", JSON.stringify([...state.orders, {
-                id: payload.id,
-                total: payload.total,
-                pizzas: payload.pizzas,
-                paid: false,
-            }]));
+            localStorage.setItem("orders", JSON.stringify([...state.orders]));
         },
         remove: (state, {payload}) => {
             state.orders = [];
             localStorage.removeItem("orders");
+        },
+        pay: (state, { payload }) => {
+            const order = state.orders.find((order) => order.id === payload);
+            order.paid = true;
+            localStorage.setItem("orders", JSON.stringify([...state.orders]));
         }
     }
 })
 
-export const { add, remove } = dataSlice.actions;
+export const { add, remove, pay } = dataSlice.actions;
 
 export default dataSlice.reducer;

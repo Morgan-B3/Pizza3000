@@ -55,7 +55,7 @@ const NewOrder = () => {
     //         total: Math.round((order.total + pizza.attributes.price) * 100)/100,
     //     });
     // }
-    
+
     const addToOrder = (pizza) => {
         setOrder({
             id,
@@ -66,21 +66,16 @@ const NewOrder = () => {
 
 
     const removePizzas = (selectedPizza) => {
-        let quantity = prompt("Combien de pizzas à supprimer ?");
+        // let quantity = prompt("Combien de pizzas à supprimer ?");
         const pizzaType = pizzas.find(pizza => pizza.attributes.name === selectedPizza.attributes.name)
         const selectedPizzas = order.pizzas.filter( selection => selection.attributes.name != selectedPizza.attributes.name);
-        const targetPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name)
-        const remainingPizzas = targetPizzas.filter((selection, index) => index > (quantity-1));
-        console.log(quantity);
-        console.log(pizzaType);
-        console.log(targetPizzas);
-        if(quantity > targetPizzas.length ){
-            quantity = targetPizzas.length
-        }
+        const remainingPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name);
+        remainingPizzas.pop();
+    
         setOrder({
             id,
             pizzas: selectedPizzas.concat(remainingPizzas),
-            total: Math.round((order.total - (pizzaType.attributes.price * quantity)) * 100)/100,
+            total: Math.round((order.total - (pizzaType.attributes.price)) * 100)/100,
         })
     }
 
@@ -112,18 +107,27 @@ const NewOrder = () => {
         if (quantity > 0) {
             return (
                 <div key={index} className='pizzaItem'>
-                    <div>
+                    <div className='title'>
                         <span>
                             <h3>{pizza.attributes.name}</h3>
                             <p>({quantity} x {pizza.attributes.price}€)</p>
                         </span>
                         <p>{totalPrice}€</p>
                     </div>
-                    <button 
-                    onClick={() => removePizzas(pizza)}
-                    >
-                        Supprimer
-                    </button>
+                    <div className='adjust'>
+                        <button 
+                        className='red'
+                        onClick={() => removePizzas(pizza)}
+                        title='Supprimer'
+                        > - </button>
+                        <span>
+                            {quantity}
+                        </span>
+                        <button className='blue' 
+                        onClick={() => addToOrder(pizza)}
+                        title='Ajouter'
+                        > + </button>
+                    </div>
                 </div>
             )
         }

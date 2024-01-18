@@ -120,15 +120,30 @@ header{
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  div{
+  .title{
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  button{
-    width: fit-content;
-    background-color: rgb(255, 36, 36) ;
+  .adjust{
+    display: flex;
+    align-items: center;
+    button, span{
+      width: 2rem;
+      text-align: center;
+    }
+    span{
+      background-color: rgb(236, 236, 236);
+      padding: 0.4rem 0;
+    }
+    button:first-child{
+      border-radius: 1rem 0 0 1rem;
+    }
+    button:last-child{
+      border-radius: 0 1rem 1rem 0;
+    }
+
   }
 }
 
@@ -143,20 +158,22 @@ header{
     background-color: white;
     padding: 1rem;
   }
-  table{
-    border-collapse: collapse;
-    text-align: left;
-    background-color: white;
-    th{
-      width: 25%;
-      border-bottom: solid 2px black ;
-    }
-    td, th {
-      padding: 0.5rem 1rem;
-    }
-    tr:not(:first-child){
-      border-top: 1px solid rgb(210, 210, 210);
-    }
+}
+
+table{
+  border-collapse: collapse;
+  text-align: left;
+  background-color: white;
+  width: 100%;
+  th{
+    width: 25%;
+    border-bottom: solid 2px black ;
+  }
+  td, th {
+    padding: 0.5rem 1rem;
+  }
+  tr:not(:first-child){
+    border-top: 1px solid rgb(210, 210, 210);
   }
 }
 
@@ -169,6 +186,36 @@ header{
   font-size: 1rem;
   &:hover{
     cursor: pointer;
+  }
+}
+
+.payment{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  gap: 1rem;
+  select{
+    width: fit-content;
+    margin: auto;
+  }
+  table{
+    text-align: center;
+    td{
+      padding: 0;
+    }
+    td:not(:first-child){
+      width: 45%;
+    }
+    img{
+      width: 100%;
+    }
+  }
+  button{
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    color: white;
   }
 }
 

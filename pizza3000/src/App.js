@@ -1,5 +1,5 @@
 import React from 'react'
-import "./App.scss"
+import "./stylesheets/App.scss"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
@@ -10,9 +10,6 @@ import Header from './components/Header';
 
 const App = () => {
 
-
-
-  
   return (
     <BrowserRouter>
       <Header/>

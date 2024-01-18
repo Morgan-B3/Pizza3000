@@ -1,7 +1,7 @@
 import React from 'react'
 import { LuHeading1 } from 'react-icons/lu';
 import { useDispatch, useSelector } from 'react-redux';
-import { remove } from '../slices/index.js';
+import { remove, removeAll } from '../slices/index.js';
 import { useNavigate } from 'react-router-dom';
 
 const Orders = () => {
@@ -14,13 +14,30 @@ const Orders = () => {
     let status;
     if (order.paid){
       status = <td className='green'>
-        <span >Réglé</span>
+        <span >Réglée</span>
         </td>
     } else {
       status = <td className='yellow'>
           <span>En attente de paiement</span>
         </td>
     }
+
+    const secureRemove = () => {
+      if (order.paid) {
+        dispatch(remove(index));
+      } else {
+        alert("La commande doit d'abord être reglée !")
+      }
+    }
+    
+    const secureUpdate = () => {
+      if (order.paid) {
+        alert("La commande ne peut plus être modifée")
+      } else {
+        navigate(`/nouvelle-commande/${order.id}`);
+      }
+    }
+
     return(
       <tr key={index}>
         <td>
@@ -31,8 +48,8 @@ const Orders = () => {
         </td>
         {status}
         <td className='buttons'>
-          <button className='yellow' onClick={() => {navigate(`/nouvelle-commande/${order.id}`)}}>Modifier</button>
-          <button className='red'>Supprimer</button>
+          <button className='btn-yellow active' onClick={() => {secureUpdate()}}>Modifier</button>
+          <button className='btn-red' onClick={() => {secureRemove()}}>Supprimer</button>
         </td>
       </tr>
     )
@@ -62,7 +79,7 @@ const Orders = () => {
             {ordersList}
           </tbody>
         </table>
-        <button onClick={() => dispatch(remove()) } className='delete red'>Supprimer Commandes</button>
+        <button onClick={() => dispatch(removeAll()) } className='delete btn-red'>Supprimer Commandes</button>
       </div>
     )
   }

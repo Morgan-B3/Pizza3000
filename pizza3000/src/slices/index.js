@@ -20,7 +20,11 @@ const dataSlice = createSlice({
             });
             localStorage.setItem("orders", JSON.stringify([...state.orders]));
         },
-        remove: (state, {payload}) => {
+        remove: (state, { payload }) => {
+            state.orders.splice(payload, 1);
+            localStorage.setItem("orders", JSON.stringify([...state.orders]));
+        },
+        removeAll: (state, {payload}) => {
             state.orders = [];
             localStorage.removeItem("orders");
         },
@@ -42,6 +46,6 @@ const dataSlice = createSlice({
     }
 })
 
-export const { add, remove, pay, update } = dataSlice.actions;
+export const { add, remove, removeAll, pay, update } = dataSlice.actions;
 
 export default dataSlice.reducer;

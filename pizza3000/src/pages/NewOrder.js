@@ -3,6 +3,7 @@ import Pizza from '../components/Pizza';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { add, update } from "../slices";
+import OrderRecap from './OrderRecap.js';
 
 const NewOrder = () => {
 
@@ -27,7 +28,14 @@ const NewOrder = () => {
                 pizzas: stateOrder.pizzas,
             })
         }
-    }, [])
+    }, []);
+
+    let paid;
+    if (stateOrder){
+        paid = stateOrder.paid;
+    } else {
+        paid = false;
+    } 
         
     const getPizzas = async () => {
         const response = await fetch("http://localhost:1337/api/pizzas").then(res => res.json());
@@ -61,37 +69,49 @@ const NewOrder = () => {
     // }
 
     const addToOrder = (pizza) => {
-        setOrder({
-            id,
-            pizzas: [...order.pizzas, pizza],
-            total: Math.round((order.total + pizza.attributes.price) * 100)/100,
-        });
+        if (paid) {
+            alert("La commande ne peut plus être modifiée");
+          } else {
+            setOrder({
+                id,
+                pizzas: [...order.pizzas, pizza],
+                total: Math.round((order.total + pizza.attributes.price) * 100)/100,
+            });
+        }
     }
 
 
     const removePizzas = (selectedPizza) => {
-        const pizzaType = pizzas.find(pizza => pizza.attributes.name === selectedPizza.attributes.name)
-        const selectedPizzas = order.pizzas.filter( selection => selection.attributes.name != selectedPizza.attributes.name);
-        const remainingPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name);
-        remainingPizzas.pop();
+        if (paid) {
+            alert("La commande ne peut plus être modifiée");
+        } else {
+            const pizzaType = pizzas.find(pizza => pizza.attributes.name === selectedPizza.attributes.name)
+            const selectedPizzas = order.pizzas.filter( selection => selection.attributes.name != selectedPizza.attributes.name);
+            const remainingPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name);
+            remainingPizzas.pop();
     
-        setOrder({
-            id,
-            pizzas: selectedPizzas.concat(remainingPizzas),
-            total: Math.round((order.total - (pizzaType.attributes.price)) * 100)/100,
-        })
+            setOrder({
+                id,
+                pizzas: selectedPizzas.concat(remainingPizzas),
+                total: Math.round((order.total - (pizzaType.attributes.price)) * 100)/100,
+            })
+        }
     }
 
     const validateOrder = () => {
-        if (order.pizzas.length === 0) {
-            alert("Veuillez selectionner au moins une pizza.")
-        } else if (stateOrder) {
-            dispatch(update(order));
-            console.log(order);
-            navigate("/");
-        } else {
-            dispatch(add(order));
-            navigate("/");
+        if (paid) {
+            alert("La commande ne peut plus être modifiée");
+          } else {
+            if (order.pizzas.length === 0) {
+                alert("Veuillez selectionner au moins une pizza.")
+            } else if (stateOrder) {
+                dispatch(update(order));
+                console.log(order);
+                navigate("/");
+            } else {
+                dispatch(add(order));
+                navigate("/");
+            }
         }
     }
 
@@ -123,14 +143,14 @@ const NewOrder = () => {
                     </div>
                     <div className='adjust'>
                         <button 
-                        className='red'
+                        className='btn-red'
                         onClick={() => removePizzas(pizza)}
                         title='Supprimer'
                         > - </button>
                         <span>
                             {quantity}
                         </span>
-                        <button className='blue' 
+                        <button className='btn-blue' 
                         onClick={() => addToOrder(pizza)}
                         title='Ajouter'
                         > + </button>
@@ -139,23 +159,14 @@ const NewOrder = () => {
             )
         }
     })
-
+    
     return (
         <>
         <section className='pizzasList'>
             {pizzasList}
         </section>
-        <section className='order'>
-            <h1>Détail de la commande n°{id}</h1>
-            <span className='orderList'>
-                {orderedPizzas}
-            </span>
-            <span className='buttons'>
-                <button className='green' onClick={() => validateOrder()}>
-                    Total : {order.total}€
-                </button>
-            </span>
-        </section>
+
+        <OrderRecap key={Date.now()} id={id} pizzas={orderedPizzas} total={order.total} action={()=>{validateOrder()}} newOrder={true} />
         </>
     )
 }

@@ -1,5 +1,11 @@
+@use "variables" as v;
+@use "mixins" as m;
+
 html{
-  background-color: rgb(255, 224, 188);
+  background-image: url("../background-pizza.jpg");
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 *{
@@ -8,8 +14,13 @@ html{
   border: none;
 }
 
+body{
+  padding: 1rem;
+  background-color: v.$transparent-bg;
+  height: 100%;
+}
+
 #root{
-  width: 98%;
   margin: auto;
 }
 
@@ -18,11 +29,11 @@ main{
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
+  flex-wrap: wrap-reverse;
 }
 
 header{
-  background-color: rgb(255, 255, 255);
-  margin: 1rem auto;
+  background-color: v.$transparent;
   display: flex;
   padding: 1rem;
   span{
@@ -34,17 +45,51 @@ header{
   }
 }
 
+.btn-red{
+  @include m.button(v.$white, v.$red);
+} 
+
+.btn-yellow{
+  @include m.button(v.$white, v.$yellow);
+}
+
+.btn-blue{
+  @include m.button(v.$white, v.$blue);
+}
+
+.btn-green{
+  @include m.button(v.$white, v.$green);
+}
+
 .menusList{
   display: flex;
   justify-content: space-between;
   margin: auto;
   width: 100%;
   text-align: center;
-  .ant-card{
-    width: 32%;
-    color: white;
+  .card {
+    width: 30%;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 200ms;
+    &:hover{
+      transform: scale(1.05);
+      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.426);
+    }
+  }
+  .card-body{
+    width: 100%;
+    color: v.$white;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+    transition: all 200ms;
     &:hover{
       cursor: pointer;
+      background-color:  v.$transparent-bg;
+      
     }
     .icon{
       width: 100%;
@@ -55,13 +100,14 @@ header{
 }
 
 .pizzasList{
-  width: 80%;
+  width: 70%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
   .ant-card{
+    background-color: v.$white;
     .image{
       width: 100%;
     }
@@ -81,8 +127,8 @@ header{
 }
 
 .order{
-  width: flex 1;
-  background-color: white;
+  flex: 1;
+  background-color: v.$transparent;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -90,20 +136,18 @@ header{
   gap: 2rem;
   .buttons{
     display: flex;
-    flex-direction: column;
     width: 100%;
     gap: 0.5rem;
   }
-  button{
-    width: 100%;
+  .nope{
     border: none;
-    color: white;
+    color: v.$white;
     padding: 0.5rem;
     font-size: 1rem;
     font-weight: bold;
-    &:hover{
-      cursor: pointer;
-    }
+  }
+  button{
+    flex:1
   }
 }
 
@@ -129,13 +173,11 @@ header{
   .adjust{
     display: flex;
     align-items: center;
-    button, span{
+    span{
       width: 2rem;
       text-align: center;
-    }
-    span{
-      background-color: rgb(236, 236, 236);
-      padding: 0.4rem 0;
+      background-color: v.$white;
+      padding: 0.4rem 0.5rem;
     }
     button:first-child{
       border-radius: 1rem 0 0 1rem;
@@ -161,12 +203,6 @@ header{
   .buttons{
     display: flex;
     justify-content: space-evenly;
-    button{
-      font-size: 1rem;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      color: white;
-    }
   }
 }
 
@@ -190,13 +226,6 @@ table{
 .delete{
   width: fit-content;
   margin: auto;
-  padding: 0.5rem 1rem;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  &:hover{
-    cursor: pointer;
-  }
 }
 
 .payment{
@@ -220,26 +249,20 @@ table{
       width: 100%;
     }
   }
-  button{
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    color: white;
-  }
 }
 
 .red{
-  background-color: rgb(255, 36, 36);
+  background-color: v.$red;
 }
 
 .green{
-  background-color: rgb(36, 180, 39);
+  background-color: v.$green;
 }
 
 .blue{
-  background-color: rgb(39, 115, 255);
+  background-color: v.$blue;
 }
 
 .yellow{
-  background-color: rgb(255, 225, 0);
+  background-color: v.$yellow;
 }

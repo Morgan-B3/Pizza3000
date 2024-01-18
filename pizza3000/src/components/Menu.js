@@ -16,14 +16,18 @@ const Menu = ({action, title, subtitle, icon, color}) => {
         iconItem = <LuClipboardSignature size={50}/>
     }
     
+    const className = `${color} card`;
+
     return (
-        <Card onClick={action} className={color} >
-            <span className='icon'>    
-                {iconItem}
-            </span>
-            <h2>{title}</h2>
-            <p>{subtitle}</p>
-        </Card>
+        <section onClick={action} className={className} >
+            <div className='card-body'>
+                <span className='icon'>    
+                    {iconItem}
+                </span>
+                <h2>{title}</h2>        
+                <p>{subtitle}</p>   
+            </div>
+        </section>
     )
 }
 

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Pizza from '../components/Pizza';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { add } from "../slices";
+import { useDispatch, useSelector } from "react-redux";
+import { add, update } from "../slices";
 
 const NewOrder = () => {
 
     const { id } = useParams();
 
+    const stateOrder  = useSelector(state => state.data.orders).find(order => order.id === id);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -17,14 +18,17 @@ const NewOrder = () => {
         total: 0,
         pizzas: [],
     });
-    // const [order, setOrder] = useState(JSON.parse(localStorage.getItem("order")) || {
-    //     id,
-    //     total: 0,
-    //     pizzas: [],
-    // });
-
-    // console.log(JSON.parse(localStorage.getItem("order")));
-
+    
+    useEffect(() => {
+        if (stateOrder){
+            setOrder({
+                id,
+                total: stateOrder.total,
+                pizzas: stateOrder.pizzas,
+            })
+        }
+    }, [])
+        
     const getPizzas = async () => {
         const response = await fetch("http://localhost:1337/api/pizzas").then(res => res.json());
         setPizzas(response.data);
@@ -66,7 +70,6 @@ const NewOrder = () => {
 
 
     const removePizzas = (selectedPizza) => {
-        // let quantity = prompt("Combien de pizzas à supprimer ?");
         const pizzaType = pizzas.find(pizza => pizza.attributes.name === selectedPizza.attributes.name)
         const selectedPizzas = order.pizzas.filter( selection => selection.attributes.name != selectedPizza.attributes.name);
         const remainingPizzas = order.pizzas.filter(selection => selection.attributes.name === selectedPizza.attributes.name);
@@ -82,6 +85,10 @@ const NewOrder = () => {
     const validateOrder = () => {
         if (order.pizzas.length === 0) {
             alert("Veuillez selectionner au moins une pizza.")
+        } else if (stateOrder) {
+            dispatch(update(order));
+            console.log(order);
+            navigate("/");
         } else {
             dispatch(add(order));
             navigate("/");
@@ -147,9 +154,6 @@ const NewOrder = () => {
                 <button className='green' onClick={() => validateOrder()}>
                     Total : {order.total}€
                 </button>
-                {/* <button className='red' onClick={() => clearLocalStorage()}>
-                    Effacer la commande
-                </button> */}
             </span>
         </section>
         </>

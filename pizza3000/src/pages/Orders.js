@@ -2,12 +2,13 @@ import React from 'react'
 import { LuHeading1 } from 'react-icons/lu';
 import { useDispatch, useSelector } from 'react-redux';
 import { remove } from '../slices/index.js';
+import { useNavigate } from 'react-router-dom';
 
 const Orders = () => {
   const orders = useSelector(state => state.data.orders);
-  console.log(orders);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const ordersList = orders.map((order, index) => {
     let status;
@@ -29,9 +30,9 @@ const Orders = () => {
           {order.total}€
         </td>
         {status}
-        <td>
-          <button>Modifier</button>
-          <button>Supprimer</button>
+        <td className='buttons'>
+          <button className='yellow' onClick={() => {navigate(`/nouvelle-commande/${order.id}`)}}>Modifier</button>
+          <button className='red'>Supprimer</button>
         </td>
       </tr>
     )

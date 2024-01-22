@@ -24,7 +24,8 @@ const Payment = () => {
 
   const payOrder = (orderIndex) => {
     dispatch(pay(orderIndex));
-    navigate('/');
+    setSelectedOption({});
+    // navigate('/');
   }
   
   const orderSelect = (orderIndex => {

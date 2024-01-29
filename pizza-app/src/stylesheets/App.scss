@@ -1,0 +1,240 @@
+// Bien penser à installer node-sass auparavant...
+// npm install node-sass
+
+@import "variables";
+@import "mixins";
+@import "reset";
+
+.App {
+  min-height: 100vh;
+  background-image: url("../img/background-pizza.jpg");
+  background-size: cover;
+  margin: 0;
+  padding: 4rem 2rem;
+
+  .App-header {
+    color: #444;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 1rem 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .back-button {
+      margin-right: 2rem;
+      cursor: pointer;
+    }
+
+    .title-wrapper {
+      display: flex;
+      justify-content: center;
+
+      h1 {
+        font-size: 6rem;
+        font-weight: 300;
+      }
+
+      .svg-inline--fa {
+        font-size: 7rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .tiles-wrapper {
+    padding: 3rem 0;
+
+    @media screen and (min-width: $sm-breakpoint) {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .tile {
+      padding: 1rem 3rem;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      border: 1px solid;
+      cursor: pointer;
+
+      @media screen and (min-width: $sm-breakpoint) {
+        flex-basis: calc(95% / 2);
+      }
+
+      @media screen and (min-width: $md-breakpoint) {
+        flex-basis: calc(95% / 3);
+      }
+
+      .svg-inline--fa {
+        padding: 2rem 0;
+        font-size: 10rem;
+      }
+
+      h2 {
+        border-top: 1px dotted #fff;
+        text-transform: uppercase;
+        font-size: 3rem;
+        padding: 2rem 0;
+      }
+    }
+  }
+
+  .order {
+    display: flex;
+  }
+
+  .order-details-wrapper {
+    flex-basis: 35%;
+    padding: 1rem;
+
+    .order-details {
+      background-color: #f1f1f1;
+      padding: 2rem;
+      height: 100%;
+
+      .order-details-item {
+        padding: 1rem 0;
+
+        .pizza-details {
+          display: flex;
+          justify-content: space-between;
+
+          font-size: 2rem;
+        }
+        .price-details {
+          font-size: 1.4rem;
+        }
+      }
+    }
+    .order-summary {
+      display: flex;
+      padding: 2rem 0;
+
+      .order-total {
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.8rem;
+        background-color: #cd1f1f;
+        color: white;
+
+        flex-grow: 1;
+
+        strong {
+          font-size: 2.2rem;
+        }
+      }
+
+      .order-paid-button {
+        margin-left: 1rem;
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.8rem;
+        background-color: $color-success;
+        color: white;
+
+        flex-basis: 50%;
+      }
+    }
+  }
+
+  .pizzas-wrapper {
+    flex-basis: 65%;
+
+    @media screen and (min-width: $sm-breakpoint) {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .pizza-wrapper {
+      padding: 1rem;
+
+      @media screen and (min-width: $sm-breakpoint) {
+        flex-basis: calc(100% /2);
+      }
+
+      .pizza {
+        padding: 1rem;
+        background-color: #f1f1f1;
+
+        .pizza-image {
+          width: 100%;
+        }
+
+        .pizza-text {
+          display: flex;
+          justify-content: space-between;
+
+          h3 {
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+
+  .orders-list {
+    margin: 1rem 0;
+    padding: 2rem;
+    background-color: #f1f1f1;
+
+    table {
+      width: 100%;
+      border-spacing: 0;
+
+      td,
+      th {
+        padding: 1rem;
+        text-align: left;
+      }
+
+      th {
+        border-bottom: 0.2rem solid;
+      }
+
+      .order-actions {
+        display: flex;
+        justify-content: space-around;
+
+        button {
+          background-color: $color-info;
+          color: white;
+          padding: 1rem;
+          border: 0;
+        }
+
+        .order-action-delete {
+          background-color: $color-danger;
+        }
+      }
+    }
+  }
+  .payment-wrapper {
+    background-color: $color-secondary;
+    padding: 2rem;
+    
+    .order-selection {
+      text-align: center;
+
+      label {
+        margin-right: 1rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.bg-success {
+  background-color: $color-success;
+  color: white;
+}
+.bg-warning {
+  background-color: $color-warning;
+  color: white;
+}
+
+.hidden {
+  display: none !important;
+}

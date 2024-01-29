@@ -1,0 +1,24 @@
+// Mixins
+@mixin no-margin {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin button($color, $background, $radius: false) {
+    color: $color;
+    background-color: $background;
+    border: 0.2rem solid $background;
+
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+
+    //Condition
+    @if $radius {
+        border-radius: $radius;
+    }
+
+    &:hover {
+        color: $background;
+        background-color: transparent;
+    }
+}
